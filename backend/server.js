@@ -11,6 +11,9 @@ const app = express()
 import User from "./user.js"
 import MyFunc from "./passportConfig.js"
 import connectDB from "./db.js"
+import passportSetup from "./passportSetup.js"
+import authRoutes from "./auth-routes.js"
+import profileRoutes from "./profile-routes.js"
 import dotenv from "dotenv"
 dotenv.config({ path: "./config.env" })
 //----------------------------------------- END OF IMPORTS---------------------------------------------------
@@ -73,6 +76,10 @@ app.post("/register", (req, res) => {
 app.get("/user", (req, res) => {
   res.send(req.user) // The req.user stores the entire user that has been authenticated inside of it.
 })
+
+app.use("/auth", authRoutes)
+app.use("/profile", profileRoutes)
+
 //----------------------------------------- END OF ROUTES---------------------------------------------------
 //Start Server
 app.listen(4000, () => {
